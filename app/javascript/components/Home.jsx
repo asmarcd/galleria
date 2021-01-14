@@ -1,10 +1,11 @@
 import React from "react";
 import UploadForm from './UploadForm'
 import Gallery from './Gallery'
+import { CloudinaryContext } from 'cloudinary-react';
 
 export default () => (
-  <div>
+  <CloudinaryContext cloudName='asmarphotocloud'>
     <UploadForm />
     <Gallery />
-  </div>
+  </CloudinaryContext>
 );

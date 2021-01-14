@@ -1,19 +1,40 @@
-import CloudinaryContext from 'cloudinary-react/lib/components/CloudinaryContext';
 import React, { useState, useEffect } from 'react';
-import { Image, Transformation } from 'cloudinary-react';
 import axios from 'axios';
+import Picture from './Picture'
 
 const Gallery = () => {
     const [images, setImages] = useState([]);
+    const [loaded, setLoaded] = useState(false)
 
-    // useEffect(() => {
-    //     axios.get('https://res.cloudinary.com/asmarphotocloud/image/upload/v1610650869/shopify-submission')
-    //     .then(res => console.log(res))
-    // })
+    useEffect(() => {
+
+        const csrfToken = document.querySelector('[name=csrf-token]').content
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
+
+        axios.get('/api/v1/images/index').then(res => {
+            console.log(res)
+            setImages(res.data)
+            setLoaded(true)
+        })
+    }, [])
+
+    let pictures;
+    if (loaded && images) {
+        pictures = images.map((item, index) => {
+            return (
+                <Picture
+                    key={index}
+                    name={item.name}
+                    caption={item.caption}
+                    url={item.url}
+                />
+            )
+        })
+    }
 
     return (
-        <section>
-            <div>Render images here</div>
+        <section className='gallery'>
+            {pictures}
         </section>
     )
 };
