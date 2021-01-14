@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CloudinaryContext } from 'cloudinary-react';
 import { openUploadWidget } from './util/CloudinaryService';
+import axios from 'axios';
 
 const UploadForm = () => {
+
+    const [newImages, setNewImages] = useState([]);
+    const [uploadReady, setUploadReady] = useState(false)
 
     // TODO: use image url from cloudinary to populate info in postgresql
     // TODO: set up useEffect and section tag to display images in database on page
     // TODO: Create components for individual rendered images where you can change name and caption
     // TODO: Styling
 
-    const beginUpload = tag => {
+    const beginUpload = () => {
         const uploadOptions = {
             cloudName: "asmarphotocloud",
-            tags: [tag],
             uploadPreset: "qqu8rkik",
             folder: "shopify-submission"
         };
@@ -21,12 +24,30 @@ const UploadForm = () => {
             if (!error) {
                 console.log(photos);
                 if (photos.event === 'success') {
-                    setImages([...images, photos.info.public_id])
+                    setNewImages((prevState) => ([...prevState, photos.info]))
+                    setUploadReady(true)
                 }
             } else {
                 console.log(error);
             }
         });
+
+        if (uploadReady) {
+            imageUpload()
+            setUploadReady(false)
+        };
+
+    };
+
+    const imageUpload = () => {
+        console.log('running')
+        newImages.forEach(image => {
+            axios.post('/api/v1/images', {
+                name: image.original_filename,
+                caption: image.original_filename,
+                url: image.url
+            })
+        }).then(res => setNewImages([])).catch(res => console.log(res))
     };
 
     return (
