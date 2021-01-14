@@ -6,7 +6,7 @@ import axios from 'axios';
 const UploadForm = () => {
 
     const [newImages, setNewImages] = useState([]);
-    const [uploadReady, setUploadReady] = useState(false)
+    // const [uploadReady, setUploadReady] = useState(false)
 
     // TODO: use image url from cloudinary to populate info in postgresql
     // TODO: set up useEffect and section tag to display images in database on page
@@ -22,32 +22,25 @@ const UploadForm = () => {
 
         openUploadWidget(uploadOptions, (error, photos) => {
             if (!error) {
-                console.log(photos);
                 if (photos.event === 'success') {
                     setNewImages((prevState) => ([...prevState, photos.info]))
-                    setUploadReady(true)
                 }
             } else {
                 console.log(error);
             }
         });
-
-        if (uploadReady) {
-            imageUpload()
-            setUploadReady(false)
-        };
-
     };
 
-    const imageUpload = () => {
-        console.log('running')
-        newImages.forEach(image => {
+    const imageUpload = (images) => {
+        console.log(images)
+        images.forEach(image => {
             axios.post('/api/v1/images', {
                 name: image.original_filename,
                 caption: image.original_filename,
                 url: image.url
             })
-        }).then(res => setNewImages([])).catch(res => console.log(res))
+        })
+            .then(res => setNewImages([])).catch(res => console.log(res))
     };
 
     return (
