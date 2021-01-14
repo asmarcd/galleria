@@ -2,10 +2,12 @@ import React from 'react';
 
 const Picture = (props) => {
 
-    const {name, caption, url} = props
+    const { name, caption, url } = props
 
     return (
-        <div>{name}, {caption}, {url}</div>
+        <div>
+            <img src = {url} alt = {name} /> 
+        </div>
     )
 };
 
