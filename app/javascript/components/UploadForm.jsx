@@ -5,7 +5,6 @@ import { openUploadWidget } from './util/CloudinaryService';
 const UploadForm = () => {
 
     const [newImages, setNewImages] = useState([]);
-    // const [uploadReady, setUploadReady] = useState(false)
 
     // TODO: use image url from cloudinary to populate info in postgresql
     // TODO: set up useEffect and section tag to display images in database on page
@@ -16,12 +15,12 @@ const UploadForm = () => {
         const uploadOptions = {
             cloudName: "asmarphotocloud",
             uploadPreset: "qqu8rkik",
-            folder: "shopify-submission",
-            tag: "shopify"
+            folder: "shopify-submission"
         };
 
         openUploadWidget(uploadOptions, (error, photos) => {
             if (!error) {
+                console.log(photos);
                 if (photos.event === 'success') {
                     setNewImages((prevState) => ([...prevState, photos.info]))
                 }
@@ -29,6 +28,7 @@ const UploadForm = () => {
                 console.log(error);
             }
         });
+
     };
 
     return (
