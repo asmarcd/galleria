@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { CloudinaryContext, Image } from 'cloudinary-react';
+import React from 'react';
+import { CloudinaryContext } from 'cloudinary-react';
 import { openUploadWidget } from './util/CloudinaryService';
 
 const UploadForm = () => {
 
-    const [images, setImages] = useState([]);
-
-    // useEffect(() => {
-    // display photos currently in gallery
-    // })
+    // TODO: use image url from cloudinary to populate info in postgresql
+    // TODO: set up useEffect and section tag to display images in database on page
+    // TODO: Create components for individual rendered images where you can change name and caption
+    // TODO: Styling
 
     const beginUpload = tag => {
         const uploadOptions = {
@@ -32,12 +31,7 @@ const UploadForm = () => {
 
     return (
         <CloudinaryContext cloudName='asmarphotocloud'>
-            <div className="App">
-                <button onClick={() => beginUpload("image")}>Upload Image</button>
-                <section>
-                    {/* Render images here */}
-                </section>
-            </div>
+            <button onClick={() => beginUpload("image")}>Upload Image</button>
         </CloudinaryContext>
     );
 
