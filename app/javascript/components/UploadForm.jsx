@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { CloudinaryContext } from 'cloudinary-react';
 import { openUploadWidget } from './util/CloudinaryService';
-import axios from 'axios';
 
 const UploadForm = () => {
 
@@ -17,7 +16,8 @@ const UploadForm = () => {
         const uploadOptions = {
             cloudName: "asmarphotocloud",
             uploadPreset: "qqu8rkik",
-            folder: "shopify-submission"
+            folder: "shopify-submission",
+            tag: "shopify"
         };
 
         openUploadWidget(uploadOptions, (error, photos) => {
@@ -29,18 +29,6 @@ const UploadForm = () => {
                 console.log(error);
             }
         });
-    };
-
-    const imageUpload = (images) => {
-        console.log(images)
-        images.forEach(image => {
-            axios.post('/api/v1/images', {
-                name: image.original_filename,
-                caption: image.original_filename,
-                url: image.url
-            })
-        })
-            .then(res => setNewImages([])).catch(res => console.log(res))
     };
 
     return (
