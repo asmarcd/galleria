@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CloudinaryContext } from 'cloudinary-react';
 import { openUploadWidget } from './util/CloudinaryService';
+import axios from 'axios';
 
 const UploadForm = () => {
 
@@ -31,9 +32,33 @@ const UploadForm = () => {
 
     };
 
+    const photoSave = () => {
+
+        const csrfToken = document.querySelector('[name=csrf-token]').content
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
+
+        if (newImages.length > 0) {
+            newImages.forEach(image => {
+
+                let upload = {
+                    name: image.original_filename,
+                    caption: image.original_filename,
+                    url: image.url
+                }
+
+                axios.post('api/v1/images/create', upload)
+            }).then(res => {
+                setNewImages([])
+            }).catch(res => console.log(res))
+        } else {
+            console.log('No photos to upload')
+        }
+    }
+
     return (
         <CloudinaryContext cloudName='asmarphotocloud'>
             <button onClick={() => beginUpload("image")}>Upload Image</button>
+            <button onClick={photoSave}>Save new uploaded photos</button>
         </CloudinaryContext>
     );
 
