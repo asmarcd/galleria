@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import UploadForm from './UploadForm'
 
 export default () => (
   <div>
-    App Homepage goes here
+    <UploadForm />
   </div>
 );
