@@ -31,9 +31,6 @@ const UploadForm = props => {
         setCaption(e.target.value)
     };
 
-    // TODO: make console log for no photos into alert
-
-
     const photoSave = e => {
         e.preventDefault();
 
@@ -56,7 +53,7 @@ const UploadForm = props => {
 
             }).then(res => { console.log(res) }).catch(res => console.log(res))
         } else {
-            console.log('No photos to upload')
+            alert("You need to upload photos before you can save them to your gallery. Click upload to open the upload tool, then add a caption to your photo(s) and click Save.")
         }
     };
 
