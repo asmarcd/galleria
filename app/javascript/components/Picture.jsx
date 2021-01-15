@@ -6,7 +6,9 @@ const Picture = (props) => {
     const { id, name, caption, url } = props
 
     const handleDelete = e => {
-        axios.delete(`/api/v1/destroy/${id}`).catch(res => console.log(res))
+        axios.delete(`/api/v1/destroy/${id}`)
+        props.galleryRefresh()
+        .catch(res => console.log(res))
     }
 
     return (

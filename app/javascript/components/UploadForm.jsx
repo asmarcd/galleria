@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { openUploadWidget } from './util/CloudinaryService';
 import axios from 'axios';
 
-const UploadForm = () => {
+const UploadForm = props => {
 
     const [newImages, setNewImages] = useState([]);
 
@@ -45,19 +45,21 @@ const UploadForm = () => {
                     url: image.url
                 }
 
-                axios.post('api/v1/images/create', upload)
-            }).then(res => {
-                setNewImages([])
-            }).catch(res => console.log(res))
+                axios.post('api/v1/images/create', upload);
+
+                setNewImages([]);
+                props.galleryRefresh();
+
+            }).then(res => {console.log(res)}).catch(res => console.log(res))
         } else {
             console.log('No photos to upload')
         }
-    }
+    };
 
     return (
-        <section className = 'is-centered buttons'>
-            <button className= 'button' onClick={() => beginUpload("image")}>Upload</button>
-            <button className= 'button' onClick={photoSave}>Save</button>
+        <section className='is-centered buttons'>
+            <button className='button' onClick={() => beginUpload("image")}>Upload</button>
+            <button className='button' onClick={photoSave}>Save</button>
         </section>
     );
 
