@@ -23,7 +23,7 @@ const Gallery = () => {
         pictures = images.map((item, index) => {
             return (
                 <section className='tile is-ancestor'>
-                    <div class="tile is-parent">
+                    <div className="tile is-parent">
                         <Picture
                             key={index}
                             id = {item.id}

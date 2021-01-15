@@ -10,9 +10,9 @@ const Picture = (props) => {
     }
 
     return (
-        <article class="tile is-child box">
-            <p class="title">{name}</p>
-            <p class="subtitle">{caption}</p>
+        <article className="tile is-child box">
+            <p className="title">{name}</p>
+            <p className="subtitle">{caption}</p>
             <img src={url} alt={name} />
             <br />
             <br />
