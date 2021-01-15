@@ -22,12 +22,17 @@ const Gallery = () => {
     if (loaded && images) {
         pictures = images.map((item, index) => {
             return (
-                <Picture
-                    key={index}
-                    name={item.name}
-                    caption={item.caption}
-                    url={item.url}
-                />
+                <section className='tile is-ancestor'>
+                    <div class="tile is-parent">
+                        <Picture
+                            key={index}
+                            id = {item.id}
+                            name={item.name}
+                            caption={item.caption}
+                            url={item.url}
+                        />
+                    </div>
+                </section>
             )
         })
     }

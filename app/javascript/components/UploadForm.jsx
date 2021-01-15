@@ -6,10 +6,6 @@ const UploadForm = () => {
 
     const [newImages, setNewImages] = useState([]);
 
-    // TODO: set up useEffect and section tag to display images in database on page
-    // TODO: Create components for individual rendered images where you can change name and caption
-    // TODO: Styling
-
     const beginUpload = () => {
         const uploadOptions = {
             cloudName: "asmarphotocloud",
@@ -29,6 +25,9 @@ const UploadForm = () => {
         });
 
     };
+
+    // TODO: make page refresh on new state
+    // TODO: make console log for no photos into alert
 
     const photoSave = () => {
 
@@ -54,9 +53,9 @@ const UploadForm = () => {
     }
 
     return (
-        <section className = 'buttons'>
-            <button onClick={() => beginUpload("image")}>Upload Image</button>
-            <button onClick={photoSave}>Save new uploaded photos</button>
+        <section className = 'is-centered buttons'>
+            <button className= 'button' onClick={() => beginUpload("image")}>Upload</button>
+            <button className= 'button' onClick={photoSave}>Save</button>
         </section>
     );
 

@@ -21,6 +21,15 @@ class Api::V1::ImagesController < ApplicationController
     end
   end
 
+  def update
+    image = Image.find(params[:id])
+    if image.update(image_params)
+      render json:image
+    else
+      render json: image.errors
+    end
+  end
+
   def destroy
     image&.destroy
     render json: { message: 'Image deleted!' }
@@ -29,7 +38,7 @@ class Api::V1::ImagesController < ApplicationController
   private
 
   def image_params
-    params.permit(:name, :caption, :url)
+    params.permit(:name, :caption, :url, :id)
   end
 
   def image
