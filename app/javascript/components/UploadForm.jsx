@@ -5,6 +5,7 @@ import axios from 'axios';
 const UploadForm = props => {
 
     const [newImages, setNewImages] = useState([]);
+    const [caption, setCaption] = useState("")
 
     const beginUpload = () => {
         const uploadOptions = {
@@ -26,12 +27,15 @@ const UploadForm = props => {
 
     };
 
-    // TODO: make page refresh on new state
+    const handleChange = e => {
+        setCaption(e.target.value)
+    };
+
     // TODO: make console log for no photos into alert
-    // TODO: add ability to add caption to save button (need a form for that)
 
 
-    const photoSave = () => {
+    const photoSave = e => {
+        e.preventDefault();
 
         const csrfToken = document.querySelector('[name=csrf-token]').content
         axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
@@ -41,7 +45,7 @@ const UploadForm = props => {
 
                 let upload = {
                     name: image.original_filename,
-                    caption: image.original_filename,
+                    caption: caption,
                     url: image.url
                 }
 
@@ -50,17 +54,24 @@ const UploadForm = props => {
                 setNewImages([]);
                 props.galleryRefresh();
 
-            }).then(res => {console.log(res)}).catch(res => console.log(res))
+            }).then(res => { console.log(res) }).catch(res => console.log(res))
         } else {
             console.log('No photos to upload')
         }
     };
 
     return (
-        <section className='is-centered buttons'>
-            <button className='button' onClick={() => beginUpload("image")}>Upload</button>
-            <button className='button' onClick={photoSave}>Save</button>
-        </section>
+        <div>
+            <section className='is-centered buttons'>
+                <button className='button' onClick={() => beginUpload("image")}>Upload</button>
+            </section>
+            <form className='container' style={{ width: "33vw" }}>
+                <input type='text' className='input is-rounded' placeholder='Write a caption' onChange={handleChange} />
+                <br />
+                <br />
+                <button className='button' onClick={photoSave}>Save</button>
+            </form>
+        </div>
     );
 
 };
