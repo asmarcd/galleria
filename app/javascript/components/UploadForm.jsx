@@ -28,6 +28,8 @@ const UploadForm = () => {
 
     // TODO: make page refresh on new state
     // TODO: make console log for no photos into alert
+    // TODO: add ability to add caption to save button (need a form for that)
+
 
     const photoSave = () => {
 
