@@ -1,4 +1,6 @@
-# Galleria Photo Service 
+# Galleria Photo Service
+[Visit the live app here](https://fathomless-chamber-21540.herokuapp.com/)
+
 
 ## Description 
 Technologies Used:
